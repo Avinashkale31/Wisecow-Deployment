@@ -34,21 +34,15 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Install kubectl
+    - name: Set up Kubeconfig
       run: |
-        curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
-        chmod +x ./kubectl
-        sudo mv ./kubectl /usr/local/bin/kubectl
-
-    - name: Setup Kubeconfig
-      env:
-        KUBECONFIG: ${{ secrets.KUBECONFIG }}
-      run: |
-        echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
         mkdir -p $HOME/.kube
-        echo "${KUBECONFIG}" > $HOME/.kube/config
+        echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
 
     - name: Deploy to Kubernetes
-      run: |
-        kubectl apply -f deployment.yaml
-        kubectl apply -f service.yaml
+      uses: azure/k8s-deploy@v4
+      with:
+        manifests: |
+          ./deployment.yaml
+          ./service.yaml
+        images: ${{ secrets.DOCKER_USERNAME }}/wisecow-app:latest
