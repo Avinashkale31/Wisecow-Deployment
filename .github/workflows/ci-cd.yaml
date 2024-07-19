@@ -40,7 +40,9 @@ jobs:
       uses: azure/setup-kubectl@v1
       with:
         version: 'latest'
-
+    - name: Create .kube directory
+      run: mkdir -p $HOME/.kube
+    
     - name: Configure Kubeconfig
       run: echo "${{ secrets.KUBECONFIG }}" | base64 --decode > $HOME/.kube/config
 
