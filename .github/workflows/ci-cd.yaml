@@ -44,14 +44,29 @@ jobs:
     - name: Create .kube directory
       run: mkdir -p $HOME/.kube
 
+    - name: Check .kube directory permissions
+      run: |
+        echo "Checking .kube directory permissions..."
+        ls -ld $HOME/.kube
+        if [ -d "$HOME/.kube" ]; then
+          echo ".kube directory exists with appropriate permissions."
+        else
+          echo ".kube directory does not exist or has incorrect permissions."
+          exit 1
+        fi
+
     - name: Configure Kubeconfig
-      run: echo "${{ secrets.KUBECONFIG }}" | base64 --decode > $HOME/.kube/config
+      run: |
+        echo "Configuring kubeconfig..."
+        echo "${{ secrets.KUBECONFIG }}" | base64 --decode > $HOME/.kube/config
       continue-on-error: true
 
-    - name: Verify kubeconfig
+    - name: Verify kubeconfig file
       run: |
+        echo "Verifying kubeconfig file..."
         if [ -f $HOME/.kube/config ]; then
           echo "Kubeconfig successfully created"
+          ls -l $HOME/.kube/config
         else
           echo "Kubeconfig creation failed"
           exit 1
@@ -59,6 +74,7 @@ jobs:
 
     - name: Deploy to Kubernetes
       run: |
+        echo "Deploying to Kubernetes..."
         kubectl apply -f deployment.yaml
         kubectl apply -f service.yaml
         kubectl apply -f ingress.yaml
