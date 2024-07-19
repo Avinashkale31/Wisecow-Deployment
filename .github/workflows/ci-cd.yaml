@@ -55,14 +55,14 @@ jobs:
       run: |
         echo "Configuring kubeconfig..."
         echo "${{ secrets.KUBECONFIG }}" | base64 --decode > $HOME/.kube/config
-        ls -l $HOME/.kube/config  # Verify that kubeconfig file was created
+        ls -l $HOME/runner/.kube/config  # Verify that kubeconfig file was created
 
     - name: Verify kubeconfig file
       run: |
         echo "Verifying kubeconfig file..."
-        if [ -f $HOME/.kube/config ]; then
+        if [ -f $HOME/runner/.kube/config ]; then
           echo "Kubeconfig successfully created"
-          ls -l $HOME/.kube/config
+          ls -l $HOME/runner/.kube/config
         else
           echo "Kubeconfig creation failed"
           exit 1
