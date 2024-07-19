@@ -46,10 +46,10 @@ jobs:
         echo "Creating .kube directory..."
         mkdir -p $HOME/.kube
         ls -ld $HOME/.kube
-     - name: Set .kube directory permissions (optional)
+    - name: Set .kube directory permissions (optional)
       run: |
-      echo "Setting .kube directory permissions..."
-      chmod u=rwx,go=r $HOME/.kube  # Adjust permissions as needed
+        echo "Setting .kube directory permissions..."
+        chmod u=rwx,go=r $HOME/.kube  # Adjust permissions as needed
 
     - name: Configure Kubeconfig
       run: |
