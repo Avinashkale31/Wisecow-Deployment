@@ -31,6 +31,9 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
     - name: Install kubectl
       run: |
         curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
@@ -38,7 +41,12 @@ jobs:
         sudo mv ./kubectl /usr/local/bin/kubectl
 
     - name: Setup Kubeconfig
-      run: echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
+      env:
+        KUBECONFIG: ${{ secrets.KUBECONFIG }}
+      run: |
+        echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
+        mkdir -p $HOME/.kube
+        echo "${KUBECONFIG}" > $HOME/.kube/config
 
     - name: Deploy to Kubernetes
       run: |
