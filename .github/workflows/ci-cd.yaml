@@ -41,35 +41,37 @@ jobs:
       with:
         version: 'latest'
 
+
     - name: Create .kube directory
       run: |
-        echo "Creating .kube directory..."
-        mkdir -p $HOME/runner/.kube
-        ls -ld $HOME/runner/.kube
+       echo "Creating .kube directory..."
+       mkdir -p $HOME/runner/.kube
+       ls -ld $HOME/runner/.kube
+
     - name: Set .kube directory permissions (optional)
       run: |
-        echo "Setting .kube directory permissions..."
-        chmod u=rwx,go=r $HOME/runner/.kube  # Adjust permissions as needed
+       echo "Setting .kube directory permissions..."
+       chmod u=rwx,go=r $HOME/runner/.kube  # Adjust permissions as needed
 
-    - name: Configure Kubeconfig
+    - name: Configure Kubeconfig (Fixed)
       run: |
-        echo "Configuring kubeconfig..."
-        echo "${{ secrets.KUBECONFIG }}" | base64 --decode > $HOME/.kube/config
-        ls -l $HOME/runner/.kube/config  # Verify that kubeconfig file was created
+       echo "Configuring kubeconfig..."
+       echo "${{ secrets.KUBECONFIG }}" | base64 --decode > $HOME/runner/.kube/config
+       ls -l $HOME/runner/.kube/config  # Verify that kubeconfig file was created
 
     - name: Verify kubeconfig file
       run: |
-        echo "Verifying kubeconfig file..."
-        if [ -f $HOME/runner/.kube/config ]; then
-          echo "Kubeconfig successfully created"
-          ls -l $HOME/runner/.kube/config
-        else
-          echo "Kubeconfig creation failed"
-          exit 1
-        fi
+       echo "Verifying kubeconfig file..."
+       if [ -f $HOME/runner/.kube/config ]; then
+       echo "Kubeconfig successfully created"
+       ls -l $HOME/runner/.kube/config
+       else
+       echo "Kubeconfig creation failed"
+       exit 1
+       fi
 
     - name: Deploy to Kubernetes
       run: |
-        echo "Deploying to Kubernetes..."
-        kubectl apply -f Deployment.yaml
-        kubectl apply -f service.yaml
+       echo "Deploying to Kubernetes..."
+       kubectl apply -f Deployment.yaml
+       kubectl apply -f service.yaml
