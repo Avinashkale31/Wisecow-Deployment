@@ -67,6 +67,5 @@ jobs:
     - name: Deploy to Kubernetes
       run: |
         echo "Deploying to Kubernetes..."
-        kubectl apply -f deployment.yaml
+        kubectl apply -f Deployment.yaml
         kubectl apply -f service.yaml
-        kubectl apply -f ingress.yaml
