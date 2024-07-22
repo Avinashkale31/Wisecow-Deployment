@@ -41,7 +41,7 @@ if [ "$process_count" -gt "$PROCESS_THRESHOLD" ]; then
 fi
 
 ```
-Usage :
+**Usage :**
 1.Save the script to a file, e.g., system_health_monitor.sh.
 2. Make the script executable with chmod +x system_health_monitor.sh.
 3. Run the script with ./system_health_monitor.sh.
