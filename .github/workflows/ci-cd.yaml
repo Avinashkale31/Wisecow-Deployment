@@ -60,7 +60,7 @@ jobs:
         run: |
           kubectl apply -f Deployment.yaml
           kubectl apply -f service.yaml
-          kubectl apply -f tls-secret.yaml
+         
           
       - name: Verify Deployment
         run: |
