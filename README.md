@@ -88,11 +88,5 @@ awk '{print $1}' $LOG_FILE | sort | uniq -c | sort -nr | head -n 10 | tee -a $RE
 
 echo "-------------------------------" | tee -a $REPORT_FILE
 echo "Analysis completed." | tee -a $REPORT_FILE
-
-``
-
-
-**Usage :**
-1. Make Executable: Run chmod +x nginx_log_analyzer.sh.
-2. Run the Script: Execute with ./nginx_log_analyzer.sh.
+```
 
