@@ -1,6 +1,7 @@
 **Problem Statement 2**
 
-**1. System Health Monitoring Script: **
+**1. System Health Monitoring Script:**
+
 Here's a basic bash script that monitors the health of a Linux system by checking CPU usage, memory usage, disk space, and running processes. It will send alerts to the console if any of the metrics exceed predefined thresholds.
 
 **Script**
