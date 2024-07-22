@@ -44,7 +44,7 @@ fi
 
 ```
 **Usage :**
-1. Save the script to a file, e.g., system_health_monitor.sh.
+1. Save the script to a file system_health_monitor.sh.
 2. Make the script executable with chmod +x system_health_monitor.sh.
 3. Run the script with ./system_health_monitor.sh.
 
@@ -91,5 +91,6 @@ echo "-------------------------------" | tee -a $REPORT_FILE
 echo "Analysis completed." | tee -a $REPORT_FILE
 ```
 **Usage :**
-1. Make Executable: Run chmod +x nginx_log_analyzer.sh.
-2. Run the Script: Execute with ./nginx_log_analyzer.sh.
+1. Save the script to a file nginx_log_analyzer.sh.
+2. Make Executable: Run chmod +x nginx_log_analyzer.sh.
+3. Run the Script: Execute with ./nginx_log_analyzer.sh.
