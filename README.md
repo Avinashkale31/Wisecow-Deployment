@@ -2,7 +2,7 @@
 
 1.Here's a basic bash script that monitors the health of a Linux system by checking CPU usage, memory usage, disk space, and running processes. It will send alerts to the console if any of the metrics exceed predefined thresholds.
 
-**Scripts **
+**Script**
 
 ```bash
 #!/bin/bash
