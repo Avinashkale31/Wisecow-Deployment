@@ -48,6 +48,7 @@ fi
 3. Run the script with ./system_health_monitor.sh.
 
 **2. Log File Analyzer Script**
+
 Here's a bash script that analyzes web server logs for common patterns. The script will summarize:
 
 The number of 404 errors.
@@ -89,6 +90,7 @@ echo "-------------------------------" | tee -a $REPORT_FILE
 echo "Analysis completed." | tee -a $REPORT_FILE
 
 ``
+
 **Usage :**
 1. Make Executable: Run chmod +x nginx_log_analyzer.sh.
 2. Run the Script: Execute with ./nginx_log_analyzer.sh.
