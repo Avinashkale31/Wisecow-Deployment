@@ -1,4 +1,9 @@
 Problem Statement 2
+
+1.Here's a basic bash script that monitors the health of a Linux system by checking CPU usage, memory usage, disk space, and running processes. It will send alerts to the console if any of the metrics exceed predefined thresholds.
+
+Scripts 
+
 ```bash
 #!/bin/bash
 
@@ -36,3 +41,8 @@ if [ "$process_count" -gt "$PROCESS_THRESHOLD" ]; then
 fi
 
 ```
+Usage :
+Save the script to a file, e.g., system_health_monitor.sh.
+Make the script executable with chmod +x system_health_monitor.sh.
+Run the script with ./system_health_monitor.sh.
+
