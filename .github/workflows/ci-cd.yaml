@@ -55,10 +55,6 @@ jobs:
       - name: Configure kubectl
         run: aws eks update-kubeconfig --name demo-eks --region us-east-1
 
-      - name: Apply Cluster Role and Role Binding
-        run: |
-          kubectl apply -f clusterrole.yaml
-          kubectl apply -f clusterrolebinding.yaml
 
       - name: Apply Deployment and Service
         run: |
