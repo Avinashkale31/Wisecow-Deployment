@@ -1,28 +1,38 @@
-# Cow wisdom web server
+Problem Statement 2
+```bash
+#!/bin/bash
 
-## Prerequisites
+# Define thresholds
+CPU_THRESHOLD=80
+MEMORY_THRESHOLD=80
+DISK_THRESHOLD=90
+
+# Log file
+LOG_FILE="/var/log/system_health.log"
+
+# Check CPU usage
+cpu_usage=$(top -bn1 | grep "Cpu(s)" | sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | awk '{print 100 - $1}')
+if (( $(echo "$cpu_usage > $CPU_THRESHOLD" |bc -l) )); then
+    echo "CPU usage is high: ${cpu_usage}%" | tee -a $LOG_FILE
+fi
+
+# Check memory usage
+memory_usage=$(free | grep Mem | awk '{print $3/$2 * 100.0}')
+if (( $(echo "$memory_usage > $MEMORY_THRESHOLD" |bc -l) )); then
+    echo "Memory usage is high: ${memory_usage}%" | tee -a $LOG_FILE
+fi
+
+# Check disk space usage
+disk_usage=$(df / | grep / | awk '{ print $5 }' | sed 's/%//g')
+if [ "$disk_usage" -gt "$DISK_THRESHOLD" ]; then
+    echo "Disk space usage is high: ${disk_usage}%" | tee -a $LOG_FILE
+fi
+
+# Check for running processes (e.g., check if the number of processes exceeds a threshold)
+process_count=$(ps aux | wc -l)
+PROCESS_THRESHOLD=200
+if [ "$process_count" -gt "$PROCESS_THRESHOLD" ]; then
+    echo "Number of running processes is high: ${process_count}" | tee -a $LOG_FILE
+fi
 
 ```
-sudo apt install fortune-mod cowsay -y
-```
-
-## How to use?
-
-1. Run `./wisecow.sh`
-2. Point the browser to server port (default 4499)
-
-## What to expect?
-![wisecow](https://github.com/nyrahul/wisecow/assets/9133227/8d6bfde3-4a5a-480e-8d55-3fef60300d98)
-
-# Problem Statement
-Deploy the wisecow application as a k8s app
-
-## Requirement
-1. Create Dockerfile for the image and corresponding k8s manifest to deploy in k8s env. The wisecow service should be exposed as k8s service.
-2. Github action for creating new image when changes are made to this repo
-3. [Challenge goal]: Enable secure TLS communication for the wisecow app.
-
-## Expected Artifacts
-1. Github repo containing the app with corresponding dockerfile, k8s manifest, any other artifacts needed.
-2. Github repo with corresponding github action.
-3. Github repo should be kept private and the access should be enabled for following github IDs: nyrahul, SujithKasireddy
