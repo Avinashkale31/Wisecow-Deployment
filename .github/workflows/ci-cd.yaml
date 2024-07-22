@@ -49,7 +49,20 @@ jobs:
           chmod +x ./kubectl
           sudo mv ./kubectl /usr/local/bin/kubectl
 
+      - name: Check if EKS cluster exists
+        run: aws eks describe-cluster --name demo-eks --region us-east-1
 
+      - name: Configure kubectl
+        run: aws eks update-kubeconfig --name demo-eks --region us-east-1
+
+   
+
+      - name: Apply Deployment and Service
+        run: |
+          kubectl apply -f deployment.yaml
+          kubectl apply -f service.yaml
+          kubectl apply -f tls-secret.yaml
+          
       - name: Verify Deployment
         run: |
           # Wait for the service to be fully set up
